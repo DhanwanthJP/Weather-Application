@@ -1,27 +1,8 @@
 import React from 'react';
 import './WeatherCard.css';
 
-/**
- * WeatherCard.jsx
- *
- * Pure presentational component.
- * Receives `data` (OpenWeatherMap API response object) and `units` as props.
- *
- * MODIFY POINT: If you switch APIs, update the destructuring below to match
- * the shape of your new API's response JSON.
- *
- * OpenWeatherMap response shape used here:
- * {
- *   name, sys.country,
- *   main: { temp, feels_like, humidity, pressure, temp_min, temp_max },
- *   weather: [{ description, icon }],
- *   wind: { speed },
- *   visibility,
- *   clouds: { all }
- * }
- */
 function WeatherCard({ data, units }) {
-  // ── Extract fields from API response ──────────────────────────────────────
+  // Extract fields from API response 
   const {
     name,
     sys: { country },
@@ -32,21 +13,17 @@ function WeatherCard({ data, units }) {
     clouds: { all: cloudiness },
   } = data;
 
-  const condition   = weather[0].description;   // e.g. "broken clouds"
-  const iconCode    = weather[0].icon;          // e.g. "04d"
+  const condition   = weather[0].description;   
+  const iconCode    = weather[0].icon;          
 
-  /**
-   * OpenWeatherMap icon URL template.
-   * MODIFY POINT: If you use a different API, replace with its icon URL format.
-   * Size options: @2x (regular) or @4x (high-res)
-   */
+
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
 
-  // ── Unit labels ─────────────────────────────────────────────────────────
+  // Unit labels 
   const tempUnit  = units === 'imperial' ? '°F' : units === 'standard' ? 'K' : '°C';
   const windUnit  = units === 'imperial' ? 'mph' : 'm/s';
 
-  /** Helper: convert visibility metres → km or miles */
+  /** convert visibility metres → km or miles */
   const formatVisibility = () => {
     if (units === 'imperial') {
       return `${(visibility / 1609.34).toFixed(1)} mi`;
@@ -57,11 +34,11 @@ function WeatherCard({ data, units }) {
   /** Helper: capitalise first letter of condition string */
   const capitalise = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // Render
   return (
     <article className="weather-card" aria-label={`Weather for ${name}, ${country}`}>
 
-      {/* ── Hero: City + Main Temp ── */}
+      {/*  Hero: City + Main Temp  */}
       <header className="card-hero">
         <div className="hero-left">
           <h1 className="city-name">
@@ -131,10 +108,7 @@ function WeatherCard({ data, units }) {
   );
 }
 
-/**
- * StatTile — small reusable sub-component for each weather stat.
- * Props: icon (emoji), label (string), value (string)
- */
+
 function StatTile({ icon, label, value }) {
   return (
     <div className="stat-tile">

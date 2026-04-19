@@ -128,7 +128,7 @@ function WeatherDashboard() {
       {/* ── Empty / Default State (no search yet) ── */}
       {!weather && !loading && !error && (
         <div className="empty-state">
-          <div className="empty-globe">🌍</div>
+        
           <h2>Search for any city</h2>
           <p>
             Type a city name above and press <strong>Search</strong> to get live
